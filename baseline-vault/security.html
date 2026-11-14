@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security – Baseline Vault for Jira</title><link rel="icon" href="../assets/logo-144.png"><style>
+:root{--bg:#fff;--text:#172b4d;--muted:#44546f;--line:#dcdfe4;--brand:#0c66e4;--soft:#f7f8f9;--code:#f1f2f4}
+@media (prefers-color-scheme:dark){:root{--bg:#1d2125;--text:#dee4ea;--muted:#9fadbc;--line:#38414a;--brand:#579dff;--soft:#22272b;--code:#2c333a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--brand)}
+header{border-bottom:1px solid var(--line);background:var(--soft)}
+.bar{max-width:880px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--text);text-decoration:none;font-size:18px}
+.brand img{width:32px;height:32px}
+nav{display:flex;gap:14px;flex-wrap:wrap;font-size:15px}
+nav a{text-decoration:none;color:var(--muted)}nav a.on{color:var(--brand);font-weight:600}
+main{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:30px;line-height:1.2;margin:8px 0 16px}h2{font-size:21px;margin:32px 0 10px}
+img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--soft)}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer .bar{display:block}
+</style></head>
+<body><header><div class="bar"><a class="brand" href="../index.html"><img src="../assets/logo-144.png" alt="">Kortali Apps</a>
+<nav><a href="../baseline-vault/">Baseline Vault</a><a href="../baseline-vault/docs.html">User guide</a><a href="../baseline-vault/privacy.html">Privacy</a><a href="../baseline-vault/security.html" class="on">Security</a><a href="../support.html">Support</a></nav></div></header>
+<main>
+<h1>Security – Baseline Vault for Jira</h1>
+<p>How the app protects your data. Last updated: 2026-11-14.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hosting</td>
+<td>Atlassian Forge only (functions, Custom UI, Key-Value Store). No vendor servers, no third-party services.</td>
+</tr>
+<tr>
+<td>Data egress</td>
+<td>None. The app calls only Jira REST APIs through Forge (<code>requestJira</code>) and Atlassian&#39;s personal data reporting API (<code>privacy.reportPersonalData</code>). No <code>fetch</code> to external hosts, no analytics.</td>
+</tr>
+<tr>
+<td>Runs on Atlassian</td>
+<td>Eligible: <code>forge eligibility</code> confirmed it for production version 3.0.0 on 2026-11-14.</td>
+</tr>
+<tr>
+<td>Scopes</td>
+<td><code>read:jira-work</code>, <code>read:jira-user</code>, <code>storage:app</code>, <code>report:personal-data</code> (only for the weekly personal data report). No write scopes on Jira data.</td>
+</tr>
+<tr>
+<td>Authorisation</td>
+<td>Jira reads use <code>asUser()</code> so users see only what Jira allows them. Creating, editing and deleting requirement sets and deleting baselines require project admin (checked server-side with Jira&#39;s mypermissions API).</td>
+</tr>
+<tr>
+<td>Input validation</td>
+<td>All resolver inputs validated server-side: IDs (UUID format), lengths, list sizes, field-ID pattern; JQL is scoped to the current project by numeric project ID and validated by Jira before saving.</td>
+</tr>
+<tr>
+<td>Data stored</td>
+<td>Requirement set settings; baseline metadata (name, note, timestamps, creator account ID); baseline records (issue fields chosen by admins). Stored in Forge KVS for the customer&#39;s site.</td>
+</tr>
+<tr>
+<td>Personal data</td>
+<td>Only the creator&#39;s Atlassian account ID. No names, emails or avatars stored (names are looked up when shown). User fields (assignee, reporter, user pickers) are never offered or recorded; @mentions are stored as &quot;@user&quot;. A weekly scheduled trigger reports stored account IDs to Atlassian&#39;s personal data reporting API; closed accounts are erased from every baseline.</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>Each baseline has a chained SHA-256 fingerprint over its stored chunks; a verify function recomputes it. Finalised baselines cannot be modified through the app.</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td>At rest and in transit by the Atlassian platform.</td>
+</tr>
+<tr>
+<td>Data residency</td>
+<td>Follows the host site (Forge storage).</td>
+</tr>
+<tr>
+<td>Retention / deletion</td>
+<td>Admin deletion in the app; on uninstall Atlassian deletes app storage per Forge rules.</td>
+</tr>
+<tr>
+<td>Output safety</td>
+<td>CSV exports neutralise spreadsheet formulas (cells starting with = + - @ are prefixed); HTML reports escape every value and contain no scripts or external resources. UI is React with no <code>dangerouslySetInnerHTML</code>.</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td>Backend: @forge/api, @forge/resolver, @forge/kvs. UI: React 18, @forge/bridge. Built with Vite. Reviewed before each release.</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>11 automated tests (fake Jira and storage): paging, chunking, fingerprint and tamper detection, permissions, license, input validation, personal data handling. End-to-end test on a real Jira Cloud site on 2026-11-14.</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>No personal data written to logs by the app.</td>
+</tr>
+<tr>
+<td>Vulnerability reporting</td>
+<td><a href="mailto:hello@provecore.com">hello@provecore.com</a>. Acknowledge within 2 business days.</td>
+</tr>
+<tr>
+<td>Incident response</td>
+<td>Notify Atlassian within 48 hours of a confirmed security incident (Marketplace Partner Agreement), then affected customers.</td>
+</tr>
+<tr>
+<td>Support SLA</td>
+<td>Critical issues identified by Atlassian: response within 24 hours; other requests within 5 business days.</td>
+</tr>
+</tbody></table></div>
+
+</main>
+<footer><div class="bar">© 2026 Kortali Apps. Independent developer; not affiliated with or endorsed by Atlassian.
+Atlassian, Jira and Forge are trademarks of Atlassian.</div></footer>
+</body></html>

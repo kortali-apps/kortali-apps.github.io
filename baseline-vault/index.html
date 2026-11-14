@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baseline Vault for Jira</title><link rel="icon" href="../assets/logo-144.png"><style>
+:root{--bg:#fff;--text:#172b4d;--muted:#44546f;--line:#dcdfe4;--brand:#0c66e4;--soft:#f7f8f9;--code:#f1f2f4}
+@media (prefers-color-scheme:dark){:root{--bg:#1d2125;--text:#dee4ea;--muted:#9fadbc;--line:#38414a;--brand:#579dff;--soft:#22272b;--code:#2c333a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--brand)}
+header{border-bottom:1px solid var(--line);background:var(--soft)}
+.bar{max-width:880px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--text);text-decoration:none;font-size:18px}
+.brand img{width:32px;height:32px}
+nav{display:flex;gap:14px;flex-wrap:wrap;font-size:15px}
+nav a{text-decoration:none;color:var(--muted)}nav a.on{color:var(--brand);font-weight:600}
+main{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:30px;line-height:1.2;margin:8px 0 16px}h2{font-size:21px;margin:32px 0 10px}
+img{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--soft)}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer .bar{display:block}
+</style></head>
+<body><header><div class="bar"><a class="brand" href="../index.html"><img src="../assets/logo-144.png" alt="">Kortali Apps</a>
+<nav><a href="../baseline-vault/" class="on">Baseline Vault</a><a href="../baseline-vault/docs.html">User guide</a><a href="../baseline-vault/privacy.html">Privacy</a><a href="../baseline-vault/security.html">Security</a><a href="../support.html">Support</a></nav></div></header>
+<main>
+<h1>Baseline Vault for Jira</h1>
+<p>Requirements baselines and traceability for Jira Cloud. Runs on Atlassian: no external servers, and no data
+leaves your Atlassian site.</p>
+<p>Teams that build regulated or safety-relevant products need to answer three questions quickly: <em>what did we
+agree on, what has changed since, and is every requirement verified?</em> Jira Cloud has no baselines, and its
+history view is per issue. Baseline Vault answers all three inside Jira.</p>
+<h2>Traceability at a glance</h2>
+<p><img src="../assets/1-traceability-920x450.png" alt="Traceability matrix with coverage cards"></p>
+<p>A live matrix shows which requirements are covered by tests, implemented by stories, and affected by open
+defects, with coverage percentage, filters for gaps, and CSV or printable report export.</p>
+<h2>See exactly what changed</h2>
+<p><img src="../assets/2-compare-920x450.png" alt="Comparison of a baseline with current Jira data"></p>
+<p>Compare a baseline with today&#39;s data or with another baseline: added, removed and changed requirements, with
+word-level highlights in descriptions and link changes listed one by one.</p>
+<h2>Baselines you can trust</h2>
+<p><img src="../assets/3-baselines-920x450.png" alt="Baselines with SHA-256 fingerprints"></p>
+<p>Freeze the text, status, priority, chosen fields and links of every requirement at a milestone. Baselines
+cannot be edited, and each one gets a chained SHA-256 fingerprint that anyone can verify later.</p>
+<h2>Built for trust</h2>
+<ul>
+<li>Runs on Atlassian. Data residency follows your site.</li>
+<li>Reads Jira with each user&#39;s own permissions. Only project administrators can configure or delete.</li>
+<li>No names, emails or user fields stored. Only each baseline creator&#39;s account ID is kept, and it is erased
+automatically if the account is closed.</li>
+</ul>
+<p><a href="docs.html">User guide</a> · <a href="privacy.html">Privacy policy</a> · <a href="security.html">Security</a> · <a href="../support.html">Support</a></p>
+
+</main>
+<footer><div class="bar">© 2026 Kortali Apps. Independent developer; not affiliated with or endorsed by Atlassian.
+Atlassian, Jira and Forge are trademarks of Atlassian.</div></footer>
+</body></html>
