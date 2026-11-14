@@ -25,6 +25,22 @@ footer .bar{display:block}
 <nav><a href="../baseline-vault/">Baseline Vault</a><a href="../baseline-vault/docs.html" class="on">User guide</a><a href="../baseline-vault/privacy.html">Privacy</a><a href="../baseline-vault/security.html">Security</a><a href="../support.html">Support</a></nav></div></header>
 <main>
 <h1>Baseline Vault – user guide</h1>
+<h2>Quick start: try every feature in 5 minutes on any Jira site</h2>
+<ol>
+<li>Install Baseline Vault from the Atlassian Marketplace (a Jira administrator installs it once per site).</li>
+<li>Open any Jira project and choose <strong>Baselines &amp; Traceability</strong> in the project navigation.</li>
+<li>If the project has no data yet, create a few issues: three <strong>Stories</strong> (your requirements), two <strong>Tasks</strong>
+(your tests) and one <strong>Bug</strong>. Link each Task to a Story and the Bug to a Story with any link type
+(for example &quot;relates to&quot;); this is how the app finds tests, implementation and defects.</li>
+<li>As a project administrator choose <strong>New set</strong>: name it &quot;System requirements&quot;, enter the JQL
+<code>issuetype = Story</code>, tick <strong>Task</strong> as test issue type and <strong>Bug</strong> as defect issue type, and save.</li>
+<li><strong>Traceability</strong> tab › <strong>Analyze traceability</strong>: the matrix shows which Stories are covered by Tasks and
+which have open Bugs. Try <strong>Export CSV</strong> and <strong>Export report</strong>.</li>
+<li><strong>Baselines</strong> tab › <strong>Create baseline</strong> named &quot;Review 1&quot;, then <strong>Verify</strong>: the fingerprint matches.</li>
+<li>Edit the description or status of one Story, then open <strong>Compare</strong>: From &quot;Review 1&quot;, To &quot;Current Jira data&quot;,
+<strong>Compare</strong>. The change is shown word by word; export it as CSV or a printable report.</li>
+</ol>
+<p>Sites with up to 10 users can use the app free of charge. Nothing leaves your Atlassian site at any step.</p>
 <h2>Where to find it</h2>
 <p>Open a Jira project and choose <strong>Baselines &amp; Traceability</strong> in the project sidebar.</p>
 <h2>1. Define a requirement set (project administrators)</h2>
